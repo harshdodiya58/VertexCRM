@@ -26,7 +26,7 @@ function formatRevenue(value: number) {
 
 export default function RevenueAreaChart() {
   return (
-    <ResponsiveContainer width="100%" height={192}>
+    <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={DATA} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
@@ -49,7 +49,7 @@ export default function RevenueAreaChart() {
           width={48}
         />
         <Tooltip
-          formatter={(value: number) => [formatRevenue(value), 'Revenue']}
+          formatter={(value: any) => [formatRevenue(value), 'Revenue']}
           contentStyle={{
             background: '#fff',
             border: '1px solid #E5E7EB',

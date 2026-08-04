@@ -73,21 +73,39 @@ export function Navbar() {
     <>
       <header
         ref={navRef}
-        className={cn(
-          'fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300',
-          isScrolled
-            ? 'top-4 w-[calc(100%-1.5rem)] max-w-5xl rounded-full bg-white shadow-elevation-2 border border-border-subtle'
-            : 'top-0 w-full rounded-none bg-transparent shadow-none border-transparent'
-        )}
+        className="fixed top-0 left-0 right-0 w-full z-50 flex justify-center pointer-events-none"
         role="banner"
       >
-        <div className={cn("w-full transition-all duration-300", isScrolled ? "px-4 md:px-8" : "container-content")}>
-          <div className={cn("flex items-center justify-between transition-all duration-300", isScrolled ? "h-14 md:h-16" : "h-16 md:h-20")}>
+        {/* Layer 1: Animating Background */}
+        <div
+          className={cn(
+            "absolute transition-all duration-400 ease-in-out pointer-events-auto",
+            isScrolled
+              ? "top-4 md:top-5 h-16 lg:h-[72px] w-[95%] md:w-[94%] lg:w-[90%] max-w-[1280px] bg-white backdrop-blur-[18px] border border-black/5 shadow-[0_10px_35px_rgba(0,0,0,0.08)] rounded-[32px]"
+              : "top-0 h-20 lg:h-24 w-full max-w-full bg-transparent border-b border-transparent shadow-none rounded-none"
+          )}
+          aria-hidden="true"
+        />
+
+        {/* Layer 2: Static Content Container */}
+        <div
+          className={cn(
+            "relative w-full transition-all duration-400 ease-in-out pointer-events-auto",
+            isScrolled ? "mt-4 md:mt-5" : "mt-0"
+          )}
+        >
+          <div className="container-content h-full">
+            <div className={cn(
+              "flex items-center justify-between transition-all duration-400 ease-in-out",
+              isScrolled ? "h-16 lg:h-[72px]" : "h-20 lg:h-24"
+            )}>
             {/* Logo */}
-            <Link href="/" className="flex shrink-0 items-center gap-2 font-heading font-semibold text-xl text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/40 rounded-sm" aria-label="VertexCRM home">
+            <div className="flex shrink-0 items-center lg:w-[240px]">
+              <Link href="/" className="flex shrink-0 items-center gap-2 font-heading font-semibold text-xl text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/40 rounded-sm" aria-label="VertexCRM home">
               <Image src="/logo.png" alt="VertexCRM Logo" width={40} height={40} priority quality={100} className="w-10 h-10 object-contain mix-blend-multiply" />
-              <span>Vertex<span className="gradient-text">CRM</span></span>
-            </Link>
+                <span>Vertex<span className="gradient-text">CRM</span></span>
+              </Link>
+            </div>
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
@@ -108,7 +126,7 @@ export function Navbar() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex shrink-0 items-center">
+            <div className="hidden lg:flex shrink-0 items-center justify-end lg:w-[240px]">
               <Button variant="dark" size="sm" className="rounded-full px-5 xl:px-6 py-2.5 whitespace-nowrap" icon={ArrowUpRight} iconPosition="right" onClick={() => { }}>
                 Get Demo
               </Button>
@@ -127,6 +145,7 @@ export function Navbar() {
               </button>
             </div>
           </div>
+        </div>
         </div>
       </header>
 

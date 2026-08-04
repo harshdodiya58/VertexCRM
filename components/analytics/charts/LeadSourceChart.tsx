@@ -14,7 +14,7 @@ const DATA = [
 
 export default function LeadSourceChart() {
   return (
-    <ResponsiveContainer width="100%" height={192}>
+    <ResponsiveContainer width="100%" height="100%">
       <PieChart>
         <Pie
           data={DATA}
@@ -39,7 +39,7 @@ export default function LeadSourceChart() {
             borderRadius: 8,
             fontSize: 12,
           }}
-          formatter={(value: number) => [`${value}%`, 'Share']}
+          formatter={(value: any) => [`${value}%`, 'Share']}
         />
         <Legend
           iconType="circle"

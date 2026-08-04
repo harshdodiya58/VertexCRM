@@ -16,7 +16,7 @@ const COLORS = ['#4F46E5', '#7C3AED', '#06B6D4', '#8B5CF6', '#A78BFA']
 
 export default function SalesByRepChart() {
   return (
-    <ResponsiveContainer width="100%" height={192}>
+    <ResponsiveContainer width="100%" height="100%">
       <BarChart data={DATA} margin={{ top: 4, right: 4, left: 0, bottom: 0 }} barSize={40}>
         <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
         <XAxis
@@ -39,7 +39,7 @@ export default function SalesByRepChart() {
             borderRadius: 8,
             fontSize: 12,
           }}
-          formatter={(value: number, name: string) => [
+          formatter={(value: any, name: any) => [
             name === 'deals' ? `${value} deals` : `₹${(value / 100000).toFixed(1)}L`,
             name === 'deals' ? 'Deals Closed' : 'Revenue',
           ]}

@@ -38,7 +38,7 @@ function TestimonialCard({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={`
-        relative p-8 rounded-xl border bg-white transition-all duration-300
+        relative p-8 rounded-xl border bg-white transition-all duration-300 h-full flex flex-col
         ${isActive
           ? 'border-accent-primary/30 shadow-elevation-3 shadow-accent-glow'
           : 'border-border-subtle shadow-elevation-1 opacity-50 scale-95'
@@ -68,7 +68,7 @@ function TestimonialCard({
       </div>
 
       {/* Author */}
-      <div className="flex items-center gap-3 pt-4 border-t border-border-subtle">
+      <div className="mt-auto flex items-center gap-3 pt-4 border-t border-border-subtle">
         <div
           className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white shrink-0"
           style={{ background: 'linear-gradient(135deg, #4F46E5, #7C3AED)' }}
@@ -140,7 +140,7 @@ export function Testimonials() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   onClick={() => setActiveIndex(i)}
-                  className="cursor-pointer"
+                  className="cursor-pointer h-full"
                 >
                   <TestimonialCard testimonial={t} isActive={i === activeIndex} />
                 </motion.div>

@@ -104,7 +104,7 @@ export function Integrations() {
   }, [isRadial, prefersReducedMotion])
 
   const CENTER = { x: 400, y: 300 }
-  const RADIUS = 220
+  const RADIUS = 240 // Increased radius to prevent overlap
 
   const nodePositions = INTEGRATIONS.map((integration) => {
     const rad = (integration.angle * Math.PI) / 180
@@ -147,17 +147,25 @@ export function Integrations() {
                     <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.3" />
                   </linearGradient>
                 </defs>
-                {nodePositions.map((node) => (
-                  <path
-                    key={node.id}
-                    className="connector-line"
-                    d={`M ${CENTER.x} ${CENTER.y} L ${node.x} ${node.y}`}
-                    stroke="url(#line-gradient)"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                ))}
+                {nodePositions.map((node) => {
+                  // Create a smooth S-curve
+                  const cp1x = (CENTER.x + node.x) / 2
+                  const cp1y = CENTER.y
+                  const cp2x = (CENTER.x + node.x) / 2
+                  const cp2y = node.y
+
+                  return (
+                    <path
+                      key={node.id}
+                      className="connector-line"
+                      d={`M ${CENTER.x} ${CENTER.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${node.x} ${node.y}`}
+                      stroke="url(#line-gradient)"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      fill="none"
+                    />
+                  )
+                })}
               </svg>
 
               {/* Center node */}

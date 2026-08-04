@@ -49,7 +49,7 @@ const FEATURES = [
     icon: Shield,
     title: 'Enterprise Security',
     description: 'SOC 2 Type II compliant. AES-256 encryption. Daily backups.',
-    span: 'col-span-1 md:col-span-2 lg:col-span-2',
+    span: 'col-span-1',
     height: 'min-h-[140px]',
     accent: '#EF4444',
   },
@@ -58,7 +58,7 @@ const FEATURES = [
     icon: TrendingUp,
     title: 'Scalable',
     description: 'Starter to Enterprise without migrating platforms. Grows with you.',
-    span: 'col-span-1 md:col-span-2',
+    span: 'col-span-1 lg:col-span-2',
     height: 'min-h-[140px]',
     accent: '#7C3AED',
   },
@@ -89,7 +89,7 @@ export function WhyChooseUs() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16 auto-rows-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-16 auto-rows-auto"
         >
           {FEATURES.map((feature) => {
             const Icon = feature.icon
@@ -99,14 +99,12 @@ export function WhyChooseUs() {
                 variants={itemVariants}
                 className={`
                   group relative p-6 rounded-xl bg-white border border-border-subtle
-                  hover:border-transparent hover:shadow-elevation-2
-                  transition-all duration-300 cursor-default
+                  hover:border-transparent transition-all duration-300 cursor-default
                   ${feature.span} ${feature.height}
                   flex flex-col gap-3 overflow-hidden
                 `}
                 whileHover={{
-                  boxShadow: `0 8px 24px ${feature.accent}20`,
-                  borderColor: `${feature.accent}30`,
+                  borderColor: `${feature.accent}40`,
                 }}
               >
                 {/* Background glow */}

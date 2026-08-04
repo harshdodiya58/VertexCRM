@@ -87,7 +87,7 @@ export function Pricing() {
               )}
             >
               {tier.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-2">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-white px-2">
                   <Badge tone="accent">{tier.badge}</Badge>
                 </div>
               )}
@@ -140,17 +140,8 @@ export function Pricing() {
                 </AnimatePresence>
               </div>
 
-              {/* CTA */}
-              <Button
-                variant={tier.ctaVariant}
-                size="md"
-                className="w-full mb-8"
-              >
-                {tier.ctaLabel}
-              </Button>
-
               {/* Features */}
-              <div className="flex flex-col gap-3 flex-1">
+              <div className="flex flex-col gap-3 flex-1 mb-8">
                 <ul className="flex flex-col gap-3" role="list">
                   {(expandedTiers[tier.id] ? tier.features : tier.features.slice(0, VISIBLE_FEATURES)).map((feature) => (
                     <li key={feature} className="flex items-start gap-3 text-sm text-text-secondary">
@@ -172,6 +163,15 @@ export function Pricing() {
                   </button>
                 )}
               </div>
+
+              {/* CTA */}
+              <Button
+                variant={tier.ctaVariant}
+                size="md"
+                className="w-full mt-auto"
+              >
+                {tier.ctaLabel}
+              </Button>
             </div>
           ))}
         </div>

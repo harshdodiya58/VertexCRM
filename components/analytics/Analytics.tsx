@@ -62,21 +62,27 @@ export function Analytics() {
           <div className="lg:col-span-2 bg-white rounded-xl border border-border-subtle shadow-elevation-1 p-6 min-w-0">
             <h3 className="text-base font-semibold text-text-primary mb-1">Revenue Trend</h3>
             <p className="text-xs text-text-muted mb-4">Last 12 months</p>
-            <RevenueAreaChart />
+            <div className="h-[240px] w-full mt-2">
+              <RevenueAreaChart />
+            </div>
           </div>
 
           {/* Lead source donut */}
           <div className="bg-white rounded-xl border border-border-subtle shadow-elevation-1 p-6 min-w-0">
             <h3 className="text-base font-semibold text-text-primary mb-1">Lead Sources</h3>
             <p className="text-xs text-text-muted mb-4">This quarter</p>
-            <LeadSourceChart />
+            <div className="h-[240px] w-full mt-2">
+              <LeadSourceChart />
+            </div>
           </div>
 
           {/* Sales by rep — full width */}
           <div className="lg:col-span-3 bg-white rounded-xl border border-border-subtle shadow-elevation-1 p-6 min-w-0">
             <h3 className="text-base font-semibold text-text-primary mb-1">Sales by Rep</h3>
             <p className="text-xs text-text-muted mb-4">Deals closed this month</p>
-            <SalesByRepChart />
+            <div className="h-[240px] w-full mt-2">
+              <SalesByRepChart />
+            </div>
           </div>
         </div>
       </div>

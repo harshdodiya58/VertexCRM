@@ -91,7 +91,7 @@ export function FinalCTA() {
                 transition={{ duration: 0.3 }}
                 onSubmit={handleSubmit}
                 noValidate
-                className="bg-white rounded-xl border border-border-subtle shadow-elevation-2 p-8 flex flex-col gap-5"
+                className="bg-white rounded-xl border border-border-subtle shadow-elevation-2 p-8 md:p-10 flex flex-col gap-6"
                 aria-label="Book a demo form"
               >
                 {/* Name */}
@@ -109,7 +109,7 @@ export function FinalCTA() {
                     placeholder="Priya Mehta"
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? 'name-error' : undefined}
-                    className={`w-full px-4 py-3 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
+                    className={`w-full px-4 h-12 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
                       errors.name ? 'border-danger bg-danger/5' : 'border-border-subtle hover:border-border-strong'
                     }`}
                   />
@@ -133,7 +133,7 @@ export function FinalCTA() {
                     placeholder="priya@mehta-realty.com"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'email-error' : undefined}
-                    className={`w-full px-4 py-3 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
+                    className={`w-full px-4 h-12 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
                       errors.email ? 'border-danger bg-danger/5' : 'border-border-subtle hover:border-border-strong'
                     }`}
                   />
@@ -157,7 +157,7 @@ export function FinalCTA() {
                     placeholder="Mehta Realty Group"
                     aria-invalid={!!errors.company}
                     aria-describedby={errors.company ? 'company-error' : undefined}
-                    className={`w-full px-4 py-3 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
+                    className={`w-full px-4 h-12 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
                       errors.company ? 'border-danger bg-danger/5' : 'border-border-subtle hover:border-border-strong'
                     }`}
                   />

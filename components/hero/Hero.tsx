@@ -81,11 +81,6 @@ function FloatingToastCard() {
 function DashboardMockup() {
   return (
     <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
-      {/* Floating cards */}
-      <FloatingLeadCard />
-      <FloatingInvoiceCard />
-      <FloatingToastCard />
-
       {/* Main dashboard preview */}
       <div className="relative bg-bg-secondary rounded-xl border border-border-subtle shadow-elevation-3 overflow-hidden">
         {/* Browser chrome */}
@@ -198,7 +193,7 @@ export function Hero() {
             <motion.h1
               id="hero-heading"
               variants={itemVariants}
-              className="font-heading font-semibold text-text-primary leading-tight"
+              className="font-heading font-semibold text-text-primary leading-tight text-4xl sm:text-5xl lg:text-6xl tracking-tight"
             >
               Manage Leads.{' '}
               <span className="gradient-text">Run HR.</span>{' '}
@@ -210,17 +205,17 @@ export function Hero() {
             </motion.h1>
 
             {/* Subhead */}
-            <motion.p variants={itemVariants} className="text-body-lg text-text-secondary max-w-lg">
+            <motion.p variants={itemVariants} className="text-body-base sm:text-body-lg text-text-secondary max-w-lg leading-relaxed">
               VertexCRM replaces the spreadsheets, disconnected tools, and missed follow-ups
               with one system your whole team actually uses.
             </motion.p>
 
             {/* CTAs */}
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-              <Button variant="primary" size="lg" icon={ArrowRight} iconPosition="right">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+              <Button variant="primary" size="md" className="px-8" icon={ArrowRight} iconPosition="right">
                 Start Free Trial
               </Button>
-              <Button variant="ghost" size="lg" icon={Play} iconPosition="left">
+              <Button variant="ghost" size="md" className="px-8" icon={Play} iconPosition="left">
                 Watch Demo
               </Button>
             </motion.div>
