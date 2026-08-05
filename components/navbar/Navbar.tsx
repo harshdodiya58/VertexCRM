@@ -79,26 +79,18 @@ export function Navbar() {
         {/* Layer 1: Animating Background */}
         <div
           className={cn(
-            "absolute transition-all duration-400 ease-in-out pointer-events-auto",
+            "absolute top-0 h-16 lg:h-[72px] transition-all duration-500 ease-in-out pointer-events-auto",
             isScrolled
-              ? "top-4 md:top-5 h-16 lg:h-[72px] w-[95%] md:w-[94%] lg:w-[90%] max-w-[1280px] bg-white backdrop-blur-[18px] border border-black/5 shadow-[0_10px_35px_rgba(0,0,0,0.08)] rounded-[32px]"
-              : "top-0 h-20 lg:h-24 w-full max-w-full bg-transparent border-b border-transparent shadow-none rounded-none"
+              ? "w-[95%] md:w-[94%] lg:w-[90%] max-w-[1280px] bg-white backdrop-blur-[18px] border border-black/5 shadow-[0_10px_35px_rgba(0,0,0,0.08)] rounded-[32px]"
+              : "w-full max-w-full bg-transparent border-b border-transparent shadow-none rounded-none"
           )}
           aria-hidden="true"
         />
 
         {/* Layer 2: Static Content Container */}
-        <div
-          className={cn(
-            "relative w-full transition-all duration-400 ease-in-out pointer-events-auto",
-            isScrolled ? "mt-4 md:mt-5" : "mt-0"
-          )}
-        >
+        <div className="relative w-full pointer-events-auto">
           <div className="container-content h-full">
-            <div className={cn(
-              "flex items-center justify-between transition-all duration-400 ease-in-out",
-              isScrolled ? "h-16 lg:h-[72px]" : "h-20 lg:h-24"
-            )}>
+            <div className="flex items-center justify-between h-16 lg:h-[72px]">
             {/* Logo */}
             <div className="flex shrink-0 items-center lg:w-[240px]">
               <Link href="/" className="flex shrink-0 items-center gap-2 font-heading font-semibold text-xl text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/40 rounded-sm" aria-label="VertexCRM home">

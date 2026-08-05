@@ -14,7 +14,7 @@ function FloatingLeadCard() {
       className="absolute -top-4 -left-8 z-10 bg-white rounded-lg shadow-elevation-3 border border-border-subtle p-4 w-56"
     >
       <div className="flex items-start gap-3">
-        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+        <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
           <span className="text-xs font-bold text-blue-600">FB</span>
         </div>
         <div>
@@ -66,7 +66,7 @@ function FloatingToastCard() {
       className="absolute top-1/2 -right-12 z-10 bg-white rounded-lg shadow-elevation-3 border border-border-subtle p-3 w-48"
     >
       <div className="flex items-center gap-2">
-        <div className="w-7 h-7 rounded-full bg-accent-primary/10 flex items-center justify-center shrink-0">
+        <div className="w-5 h-5 rounded-full bg-accent-primary/10 flex items-center justify-center shrink-0">
           <Bell className="w-3.5 h-3.5 text-accent-primary" />
         </div>
         <div>
@@ -153,7 +153,7 @@ function DashboardMockup() {
 export function Hero() {
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden bg-bg-primary"
+      className="relative min-h-svh flex items-center overflow-hidden bg-bg-primary"
       aria-labelledby="hero-heading"
     >
       {/* Background decoration */}
@@ -172,14 +172,14 @@ export function Hero() {
         </svg>
       </div>
 
-      <div className="container-content relative z-10 py-32 lg:py-40">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="container-content relative z-10 pt-24 pb-16 xl:pt-28 2xl:pt-32">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left: Copy */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="flex flex-col gap-6 min-w-0 w-full"
+            className="flex flex-col gap-3 2xl:gap-4 min-w-0 w-full"
           >
             {/* Eyebrow */}
             <motion.div variants={itemVariants}>
@@ -193,7 +193,7 @@ export function Hero() {
             <motion.h1
               id="hero-heading"
               variants={itemVariants}
-              className="font-heading font-semibold text-text-primary leading-tight text-4xl sm:text-5xl lg:text-6xl tracking-tight"
+              className="font-heading font-semibold text-text-primary text-4xl 2xl:text-5xl 3xl:text-6xl leading-[1.1] tracking-tight"
             >
               Manage Leads.{' '}
               <span className="gradient-text">Run HR.</span>{' '}
@@ -211,23 +211,28 @@ export function Hero() {
             </motion.p>
 
             {/* CTAs */}
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-              <Button variant="primary" size="md" className="px-8" icon={ArrowRight} iconPosition="right">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 pt-1">
+              <Button variant="primary" size="md" className="!px-4" icon={ArrowRight} iconPosition="right">
                 Start Free Trial
               </Button>
-              <Button variant="ghost" size="md" className="px-8" icon={Play} iconPosition="left">
-                Watch Demo
+              <Button variant="secondary" size="md" className="!px-4 group">
+                <span className="flex items-center gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-gradient-to-br from-accent-primary to-accent-tertiary text-white flex items-center justify-center shadow-accent-glow transition-transform duration-200 group-hover:scale-110">
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                  </span>
+                  <span>Watch Demo</span>
+                </span>
               </Button>
             </motion.div>
 
             {/* Social proof */}
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 pt-4 border-t border-border-subtle">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 pt-1 border-t border-border-subtle">
               <div className="flex items-center gap-2">
-                <div className="flex -space-x-2">
+                <div className="flex -space-x-1">
                   {['PM', 'RS', 'AK', 'VD'].map((initials, i) => (
                     <div
                       key={initials}
-                      className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white"
+                      className="w-5 h-5 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white"
                       style={{
                         background: ['#4F46E5', '#7C3AED', '#06B6D4', '#10B981'][i],
                         zIndex: 4 - i
@@ -259,7 +264,7 @@ export function Hero() {
             variants={fadeInVariants}
             initial="hidden"
             animate="show"
-            className="relative lg:pl-8 min-w-0 w-full mt-12 lg:mt-0"
+            className="relative lg:pl-8 min-w-0 w-full mt-10 lg:mt-0"
           >
             <DashboardMockup />
           </motion.div>

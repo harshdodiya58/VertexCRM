@@ -147,6 +147,7 @@ export function DashboardShowcase() {
             end: '+=1500',
             scrub: 1,
             pin: true,
+            anticipatePin: 1,
           },
         })
 
@@ -155,7 +156,7 @@ export function DashboardShowcase() {
           { scale: 0.7, opacity: 0 },
           { scale: 1, opacity: 1, duration: 1, ease: 'power3.out' }
         )
-          .to(overlayRef.current, { opacity: 0, duration: 0.4 }, '-=0.2')
+          .to(overlayRef.current, { opacity: 0, duration: 0.4, pointerEvents: 'none' }, '-=0.2')
           .fromTo(
             revenueCardRef.current,
             { y: 40, opacity: 0 },
@@ -226,7 +227,7 @@ export function DashboardShowcase() {
         </div>
 
         {/* Browser frame + dashboard */}
-        <div ref={frameRef} className="relative max-w-5xl mx-auto" style={{ opacity: 0, scale: 0.7 }}>
+        <div ref={frameRef} className="relative max-w-5xl mx-auto" style={{ opacity: 0 }}>
           {/* Boot overlay */}
           <div
             ref={overlayRef}

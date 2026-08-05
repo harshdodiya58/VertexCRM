@@ -44,8 +44,8 @@ function LogoItem({ name, icon: Icon, color, bg }: typeof LOGOS[0]) {
 
 export function TrustedBy() {
   return (
-    <section className="py-16 bg-bg-secondary border-y border-border-subtle overflow-hidden" aria-label="Integrations and trusted partners">
-      <div className="container-content mb-8">
+    <section className="py-12 bg-bg-secondary border-y border-border-subtle overflow-hidden" aria-label="Integrations and trusted partners">
+      <div className="container-content mb-4">
         <SectionHeading
           eyebrow="CONNECTS WITH THE TOOLS YOU ALREADY USE"
           title=""
@@ -59,14 +59,14 @@ export function TrustedBy() {
 
       {/* Marquee */}
       <div
-        className="relative py-4"
+        className="relative py-3"
         style={{
           maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
           WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
         }}
         aria-hidden="true"
       >
-        <div className="flex w-max animate-[marquee-reverse_40s_linear_infinite]">
+        <div className="marquee-track-reverse">
           {MARQUEE_ITEMS.map((logo, i) => (
             <LogoItem key={`${logo.name}-${i}`} {...logo} />
           ))}
