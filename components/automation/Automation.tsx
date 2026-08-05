@@ -88,7 +88,7 @@ export function Automation() {
           align="center"
         />
 
-        <div className="mt-16 max-w-lg mx-auto lg:max-w-none">
+        <div className="mt-10 max-w-lg mx-auto lg:max-w-none">
           <div ref={stepsRef} className="relative">
             {/* Vertical connector line */}
             <div
@@ -149,7 +149,7 @@ export function Automation() {
         </div>
 
         {/* Bottom note */}
-        <p className="text-center text-text-muted text-sm mt-12">
+        <p className="text-center text-text-muted text-sm mt-5">
           Workflows are fully customizable — build your own automation in minutes, no code required.
         </p>
       </div>

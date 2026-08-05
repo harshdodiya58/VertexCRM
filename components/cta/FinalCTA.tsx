@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle2, ArrowRight } from 'lucide-react'
+import { CheckCircle2, ArrowRight, User, Mail, Building2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { cn } from '@/lib/utils'
 
 interface FormData {
   name: string
@@ -24,6 +25,64 @@ function validateForm(data: FormData): FormErrors {
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = 'Enter a valid email'
   if (!data.company.trim()) errors.company = 'Company name is required'
   return errors
+}
+
+function Field({
+  id,
+  label,
+  icon: Icon,
+  type = 'text',
+  autoComplete,
+  value,
+  onChange,
+  placeholder,
+  error,
+}: {
+  id: string
+  label: string
+  icon: React.ElementType
+  type?: string
+  autoComplete?: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  placeholder: string
+  error?: string
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-sm font-medium text-text-primary">
+        {label}
+      </label>
+      <div className="relative">
+        <Icon
+          className={cn(
+            'absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none transition-colors',
+            error ? 'text-danger' : 'text-text-muted'
+          )}
+          aria-hidden="true"
+        />
+        <input
+          id={id}
+          name={id.replace('cta-', '')}
+          type={type}
+          autoComplete={autoComplete}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${id}-error` : undefined}
+          className={cn(
+            'w-full h-12 pl-10 pr-4 rounded-md border bg-bg-secondary text-sm text-text-primary placeholder:text-text-muted',
+            'transition-colors duration-200 focus:outline-none focus:bg-white focus:ring-2 focus:ring-accent-primary/30 focus:border-accent-primary',
+            error ? 'border-danger bg-danger/5' : 'border-border-subtle hover:border-border-strong'
+          )}
+        />
+      </div>
+      {error && (
+        <p id={`${id}-error`} className="text-xs text-danger" role="alert">{error}</p>
+      )}
+    </div>
+  )
 }
 
 export function FinalCTA() {
@@ -62,10 +121,6 @@ export function FinalCTA() {
     >
       {/* Gradient wash background (≤5% opacity per spec) */}
       <div className="absolute inset-0 bg-signature-subtle pointer-events-none" aria-hidden="true" />
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent-primary/4 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-tertiary/4 rounded-full blur-3xl" />
-      </div>
 
       <div className="container-content relative z-10">
         <div className="max-w-2xl mx-auto text-center mb-12">
@@ -91,86 +146,48 @@ export function FinalCTA() {
                 transition={{ duration: 0.3 }}
                 onSubmit={handleSubmit}
                 noValidate
-                className="bg-white rounded-xl border border-border-subtle shadow-elevation-2 p-8 md:p-10 flex flex-col gap-6"
+                className="bg-white rounded-xl border border-border-subtle shadow-elevation-2 p-5 flex flex-col gap-4"
                 aria-label="Book a demo form"
               >
-                {/* Name */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="cta-name" className="text-sm font-medium text-text-primary">
-                    Your Name
-                  </label>
-                  <input
-                    id="cta-name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Priya Mehta"
-                    aria-invalid={!!errors.name}
-                    aria-describedby={errors.name ? 'name-error' : undefined}
-                    className={`w-full px-4 h-12 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
-                      errors.name ? 'border-danger bg-danger/5' : 'border-border-subtle hover:border-border-strong'
-                    }`}
-                  />
-                  {errors.name && (
-                    <p id="name-error" className="text-xs text-danger" role="alert">{errors.name}</p>
-                  )}
-                </div>
+                <Field
+                  id="cta-name"
+                  label="Your Name"
+                  icon={User}
+                  autoComplete="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Priya Mehta"
+                  error={errors.name}
+                />
 
-                {/* Email */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="cta-email" className="text-sm font-medium text-text-primary">
-                    Work Email
-                  </label>
-                  <input
-                    id="cta-email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="priya@mehta-realty.com"
-                    aria-invalid={!!errors.email}
-                    aria-describedby={errors.email ? 'email-error' : undefined}
-                    className={`w-full px-4 h-12 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
-                      errors.email ? 'border-danger bg-danger/5' : 'border-border-subtle hover:border-border-strong'
-                    }`}
-                  />
-                  {errors.email && (
-                    <p id="email-error" className="text-xs text-danger" role="alert">{errors.email}</p>
-                  )}
-                </div>
+                <Field
+                  id="cta-email"
+                  label="Work Email"
+                  icon={Mail}
+                  type="email"
+                  autoComplete="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="priya@mehta-realty.com"
+                  error={errors.email}
+                />
 
-                {/* Company */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="cta-company" className="text-sm font-medium text-text-primary">
-                    Company Name
-                  </label>
-                  <input
-                    id="cta-company"
-                    name="company"
-                    type="text"
-                    autoComplete="organization"
-                    value={formData.company}
-                    onChange={handleChange}
-                    placeholder="Mehta Realty Group"
-                    aria-invalid={!!errors.company}
-                    aria-describedby={errors.company ? 'company-error' : undefined}
-                    className={`w-full px-4 h-12 rounded-sm border text-text-primary placeholder:text-text-muted text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary/30 ${
-                      errors.company ? 'border-danger bg-danger/5' : 'border-border-subtle hover:border-border-strong'
-                    }`}
-                  />
-                  {errors.company && (
-                    <p id="company-error" className="text-xs text-danger" role="alert">{errors.company}</p>
-                  )}
-                </div>
+                <Field
+                  id="cta-company"
+                  label="Company Name"
+                  icon={Building2}
+                  autoComplete="organization"
+                  value={formData.company}
+                  onChange={handleChange}
+                  placeholder="Mehta Realty Group"
+                  error={errors.company}
+                />
 
                 <Button
                   type="submit"
                   variant="primary"
                   size="lg"
-                  className="w-full mt-2"
+                  className="w-full mt-1"
                   icon={ArrowRight}
                   iconPosition="right"
                   loading={isLoading}

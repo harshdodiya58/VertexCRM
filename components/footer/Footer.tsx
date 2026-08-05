@@ -58,7 +58,7 @@ const SOCIAL_LINKS = [
 export function Footer() {
   return (
     <footer className="bg-bg-primary border-t border-border-subtle" role="contentinfo">
-      <div className="container-content pt-16 pb-8">
+      <div className="container-content pt-16 pb-4">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-16">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
@@ -117,7 +117,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border-subtle">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-border-subtle">
           <p className="text-sm text-text-muted">
             © {new Date().getFullYear()} VertexCRM. All rights reserved. Made in India 🇮🇳
           </p>

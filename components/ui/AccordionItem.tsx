@@ -79,14 +79,14 @@ export function AccordionItem({
         aria-controls={panelId}
         onClick={onToggle}
         className={cn(
-          'w-full flex items-center justify-between gap-4 p-6',
+          'w-full flex items-center justify-between gap-4 p-4',
           'text-left font-semibold text-text-primary font-heading',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary/40 focus-visible:ring-inset',
           'rounded-md transition-colors duration-200',
           'hover:text-accent-primary'
         )}
       >
-        <span className="text-lg">{question}</span>
+        <span className="text-base">{question}</span>
         <ChevronDown
           className={cn(
             'w-5 h-5 shrink-0 text-text-muted transition-transform duration-300',
@@ -103,7 +103,7 @@ export function AccordionItem({
         aria-labelledby={buttonId}
         style={{ height: 0, overflow: 'hidden' }}
       >
-        <div className="px-6 pb-6">
+        <div className="px-4 pb-4">
           <p className="text-text-secondary leading-relaxed">{answer}</p>
         </div>
       </div>

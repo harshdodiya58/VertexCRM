@@ -39,7 +39,7 @@ export function Analytics() {
         />
 
         {/* KPI Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-5 mb-5">
           {KPI_STATS.map((stat) => (
             <div key={stat.label} className="text-center p-6 rounded-xl bg-bg-secondary border border-border-subtle">
               <div className="text-4xl font-heading font-bold text-accent-primary mb-2">

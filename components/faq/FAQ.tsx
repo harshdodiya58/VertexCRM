@@ -24,7 +24,7 @@ export function FAQ() {
         />
 
         <div
-          className="mt-12 max-w-3xl mx-auto flex flex-col gap-3"
+          className="mt-10 max-w-3xl mx-auto flex flex-col gap-3"
           role="list"
           aria-label="Frequently asked questions"
         >
@@ -40,7 +40,7 @@ export function FAQ() {
           ))}
         </div>
 
-        <p className="text-center text-text-muted text-sm mt-8">
+        <p className="text-center text-text-muted text-sm mt-5">
           Still have questions?{' '}
           <a
             href="#contact"
