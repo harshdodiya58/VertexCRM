@@ -122,6 +122,7 @@ export function DashboardShowcase() {
   const sectionRef = useRef<HTMLElement>(null)
   const frameRef = useRef<HTMLDivElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
   const revenueCardRef = useRef<HTMLDivElement>(null)
   const pipelineCardRef = useRef<HTMLDivElement>(null)
   const activityFeedRef = useRef<HTMLDivElement>(null)
@@ -129,75 +130,55 @@ export function DashboardShowcase() {
 
   useGSAP(() => {
     if (prefersReducedMotion) {
-      gsap.set([frameRef.current, revenueCardRef.current, pipelineCardRef.current, activityFeedRef.current], {
-        opacity: 1, y: 0, scale: 1,
-      })
+      gsap.set(
+        [frameRef.current, statsRef.current, revenueCardRef.current, pipelineCardRef.current, activityFeedRef.current],
+        { opacity: 1, y: 0, scale: 1 }
+      )
       if (overlayRef.current) gsap.set(overlayRef.current, { opacity: 0 })
       return
     }
 
-    // Volume 5.5 — matchMedia for responsive pin
-    ScrollTrigger.matchMedia({
-      '(min-width: 768px)': function () {
-        // Volume 5.3 — Literal GSAP Timeline (exact structure from spec)
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: '+=1500',
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
-          },
-        })
-
-        tl.fromTo(
-          frameRef.current,
-          { scale: 0.7, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 1, ease: 'power3.out' }
-        )
-          .to(overlayRef.current, { opacity: 0, duration: 0.4, pointerEvents: 'none' }, '-=0.2')
-          .fromTo(
-            revenueCardRef.current,
-            { y: 40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6 },
-            '+=0.1'
-          )
-          .fromTo(
-            pipelineCardRef.current,
-            { y: 40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6 },
-            '-=0.4'
-          )
-          .fromTo(
-            activityFeedRef.current,
-            { y: 40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6 },
-            '-=0.4'
-          )
-          .to(frameRef.current, { y: -20, duration: 0.8, ease: 'power2.inOut' })
-      },
-      // Mobile fallback — simple IntersectionObserver fade+slide, no pin
-      '(max-width: 767px)': function () {
-        gsap.fromTo(
-          [frameRef.current, revenueCardRef.current, pipelineCardRef.current, activityFeedRef.current],
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            stagger: 0.15,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            },
-          }
-        )
-        if (overlayRef.current) gsap.set(overlayRef.current, { opacity: 0 })
+    // Scroll-scrubbed reveal — browser frame first, then stats, then cards one by one, then dashboard lifts up
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: frameRef.current,
+        start: 'top 110%',
+        end: 'top 10%',
+        scrub: 1,
       },
     })
+
+    tl.fromTo(
+      frameRef.current,
+      { scale: 0.7, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 1.2, ease: 'none' }
+    )
+      .to(overlayRef.current, { opacity: 0, duration: 0.4, pointerEvents: 'none' }, '-=0.3')
+      .fromTo(
+        statsRef.current,
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'none' },
+        '+=0.1'
+      )
+      .fromTo(
+        revenueCardRef.current,
+        { y: 48, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'none' },
+        '+=0.1'
+      )
+      .fromTo(
+        pipelineCardRef.current,
+        { y: 48, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'none' },
+        '+=0.15'
+      )
+      .fromTo(
+        activityFeedRef.current,
+        { y: 48, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'none' },
+        '+=0.15'
+      )
+      .to(frameRef.current, { y: -40, duration: 1, ease: 'none' }, '+=0.2')
   }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
 
   return (
@@ -272,7 +253,7 @@ export function DashboardShowcase() {
             {/* Dashboard content */}
             <div className="p-4 sm:p-6 bg-bg-secondary">
               {/* Top stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+              <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                 {[
                   { label: 'Total Leads', value: '248', change: '+12%', color: '#4F46E5' },
                   { label: 'Revenue', value: '₹12.4L', change: '+28%', color: '#10B981' },

@@ -51,7 +51,15 @@ function IntegrationNode({ id, label, icon, color, tooltip, isRadial, index }: I
       >
         <Icon className="w-7 h-7" style={{ color }} aria-hidden="true" />
       </div>
-      <span className="text-xs font-medium text-text-secondary text-center leading-tight max-w-[80px]">{label}</span>
+      <span
+        className={
+          isRadial
+            ? 'absolute top-full mt-2 left-1/2 -translate-x-1/2 text-xs font-medium text-text-secondary text-center leading-tight w-max max-w-[80px]'
+            : 'text-xs font-medium text-text-secondary text-center leading-tight max-w-[80px]'
+        }
+      >
+        {label}
+      </span>
 
       {/* Tooltip */}
       {showTooltip && (
@@ -80,24 +88,28 @@ export function Integrations() {
   useEffect(() => {
     if (!svgRef.current || !isRadial || prefersReducedMotion) return
 
-    const lines = svgRef.current.querySelectorAll<SVGPathElement>('.connector-line')
-    lines.forEach((line) => {
-      const length = line.getTotalLength()
-      gsap.set(line, { strokeDasharray: length, strokeDashoffset: length })
-    })
-
     const ctx = gsap.context(() => {
-      gsap.to('.connector-line', {
-        strokeDashoffset: 0,
-        duration: 0.6,
-        stagger: 0.08,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none none',
-        },
+      const lines = gsap.utils.toArray<SVGPathElement>('.connector-line')
+      lines.forEach((line) => {
+        line.setAttribute('stroke-dasharray', String(line.getTotalLength()))
       })
+
+      gsap.fromTo(
+        '.connector-line',
+        { strokeDashoffset: (i, el) => (el as SVGPathElement).getTotalLength() },
+        {
+          strokeDashoffset: 0,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: 'power3.out',
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 70%',
+            toggleActions: 'play none none none',
+          },
+        },
+      )
     })
 
     return () => ctx.revert()
@@ -105,6 +117,8 @@ export function Integrations() {
 
   const CENTER = { x: 400, y: 300 }
   const RADIUS = 240 // Increased radius to prevent overlap
+  const LOGO_RADIUS = 40 // Half of the center logo (w-20 = 80px)
+  const ICON_RADIUS = 28 // Half of an integration icon (w-14 = 56px)
 
   const nodePositions = INTEGRATIONS.map((integration) => {
     const rad = (integration.angle * Math.PI) / 180
@@ -118,7 +132,7 @@ export function Integrations() {
   return (
     <section
       ref={sectionRef}
-      className="section-padding bg-bg-primary"
+      className="py-12 lg:py-14 bg-bg-primary"
       id="integrations"
       aria-labelledby="integrations-heading"
     >
@@ -138,29 +152,44 @@ export function Integrations() {
               <svg
                 ref={svgRef}
                 viewBox="0 0 800 600"
+                preserveAspectRatio="none"
                 className="absolute inset-0 w-full h-full pointer-events-none"
                 aria-hidden="true"
               >
                 <defs>
-                  <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="line-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="800" y2="0">
                     <stop offset="0%" stopColor="#4F46E5" stopOpacity="0.6" />
                     <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.3" />
                   </linearGradient>
                 </defs>
                 {nodePositions.map((node) => {
-                  // Create a smooth S-curve
-                  const cp1x = (CENTER.x + node.x) / 2
-                  const cp1y = CENTER.y
-                  const cp2x = (CENTER.x + node.x) / 2
-                  const cp2y = node.y
+                  // Direction from center to node (unit vector)
+                  const dx = node.x - CENTER.x
+                  const dy = node.y - CENTER.y
+                  const dist = Math.hypot(dx, dy)
+                  const ux = dx / dist
+                  const uy = dy / dist
+
+                  // Start at the edge of the center logo, end at the edge of the icon
+                  const sx = CENTER.x + ux * LOGO_RADIUS
+                  const sy = CENTER.y + uy * LOGO_RADIUS
+                  const ex = node.x - ux * ICON_RADIUS
+                  const ey = node.y - uy * ICON_RADIUS
+
+                  // Control points tangent to the radial direction for a smooth, continuous curve
+                  const mid = dist - LOGO_RADIUS - ICON_RADIUS
+                  const c1x = sx + ux * mid * 0.5
+                  const c1y = sy + uy * mid * 0.5
+                  const c2x = ex - ux * mid * 0.5
+                  const c2y = ey - uy * mid * 0.5
 
                   return (
                     <path
                       key={node.id}
                       className="connector-line"
-                      d={`M ${CENTER.x} ${CENTER.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${node.x} ${node.y}`}
+                      d={`M ${sx} ${sy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${ex} ${ey}`}
                       stroke="url(#line-gradient)"
-                      strokeWidth="1.5"
+                      strokeWidth="2"
                       strokeLinecap="round"
                       fill="none"
                     />
