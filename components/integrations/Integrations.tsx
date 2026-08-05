@@ -162,7 +162,7 @@ export function Integrations() {
                     <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.3" />
                   </linearGradient>
                 </defs>
-                {nodePositions.map((node) => {
+                {nodePositions.map((node, i) => {
                   // Direction from center to node (unit vector)
                   const dx = node.x - CENTER.x
                   const dy = node.y - CENTER.y
@@ -176,12 +176,22 @@ export function Integrations() {
                   const ex = node.x - ux * ICON_RADIUS
                   const ey = node.y - uy * ICON_RADIUS
 
-                  // Control points tangent to the radial direction for a smooth, continuous curve
+                  // Deterministic per-node variety so the lines don't all look alike
+                  const h = (i * 2654435761) % 100
+                  const amp = 10 + (h % 18)
+                  const sign = h % 2 === 0 ? 1 : -1
+                  const bowSign = h % 3 === 1 ? -1 : 1 // -1 = arch, +1 = S-curve
+
+                  const px = -uy * sign * amp
+                  const py = ux * sign * amp
+
                   const mid = dist - LOGO_RADIUS - ICON_RADIUS
-                  const c1x = sx + ux * mid * 0.5
-                  const c1y = sy + uy * mid * 0.5
-                  const c2x = ex - ux * mid * 0.5
-                  const c2y = ey - uy * mid * 0.5
+                  const pull = mid * 0.5
+
+                  const c1x = sx + ux * pull + px
+                  const c1y = sy + uy * pull + py
+                  const c2x = ex - ux * pull - px * bowSign
+                  const c2y = ey - uy * pull - py * bowSign
 
                   return (
                     <path
