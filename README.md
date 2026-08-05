@@ -9,7 +9,7 @@
   </p>
 
   <p>
-    <a href="https://vertexcrm.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-vertexcrm.vercel.app-blue?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
+    <a href="https://vertex-crm-gamma.vercel.app/"><img src="https://img.shields.io/badge/Live%20Demo-vertex--crm--gamma.vercel.app-blue?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
     <a href="https://github.com/harshdodiya58/VertexCRM"><img src="https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github" alt="GitHub Repo" /></a>
   </p>
 
